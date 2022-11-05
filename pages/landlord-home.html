@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../assets/images/favicon.png">
+    <link rel="stylesheet" href="../styles/form.css" />
+    <link rel="stylesheet" href="../styles/home.css" />
+    <script src="../scripts/auth/homeAuth.js" type="module"></script>
+    <script src="../scripts/auth/signoutAuth.js" type="module"></script>
+    <script src="../scripts/func/landlord.js" type="module"></script>
+    <title>Stay@While - Home</title>
+  </head>
+  <body>
+    <header id="header">
+      <h2 id="logo">Stay@While</h2>
+      <h2 id="title">Landlord &nbsp; Panel</h2>
+      <div class="dropdown">
+        <button class="dropbtn">Menu</button>
+        <div class="dropdown-content">
+          <a id="profile" href="../pages/profile.html">Profile</a>
+          <a id="signout">Sign Out</a>
+        </div>
+      </div>  
+      </div>
+    </header>
+    <link rel="stylesheet" href="../styles/home.css" />
+    <div id="property-dashboard">
+      <h2 style="margin-left: 2%">Dashboard</h2>
+      <div class="gen-info">
+        <div style="text-align:center;"> <div id="lot-amount-hd">Lot Amount</div>
+        <div id="lot-am-ds"></div></div>
+
+        <div style="text-align:center;"> <div id="lot-av-hd">Available</div>
+        <div id="lot-av-ds"></div></div>
+
+      </div>
+      <h3 style="margin-left: 2%">Customers</h3>
+      <div  id = "info-basic" class="gen-info">
+        <div id="cname">Name</div>
+      <div id="exp">Expires In (days)</div></div>
+      <div id="tenants-info">
+
+
+      </div>
+    </div>
+    <button type="submit" id="add-btn">Add Parking Lot </button>
+    <div>
+      <form id="parking-entry-form">
+        <h2 style="color: #dddbf1; margin-left: 65px">Property Information</h2>
+        <label id="form-lable" for="property-name">Property Name</label>
+        <input type="text" id="property-name" autocomplete="off" />
+
+        <label id="form-lable" for="lot-amount">Parking Lot Amount</label>
+        <input type="number" id="lot-amount" min="0" />
+        <label id="form-lable" for="lot-price">Parking Lot Price /year</label>
+        <input type="number" id="lot-price" min="0" />
+        <label id="form-lable" for="prop-img">Parking Lot Image</label>
+        <input type="file" name="prop-img" id="prop-img" accept="image/png, image/jpeg" />
+        <div id="error-message">form cannot be empty</div>
+        <div style="margin-left: 65px; margin-top: 10px"><input type="submit" value="Done" id="add-done-btn" /></div>
+      </form>
+    </div>
+  </body>
+</html>

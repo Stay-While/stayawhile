@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../assets/images/favicon.png" />
+    <link rel="stylesheet" href="../styles/form.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <title>Stay@While - Login</title>
+  </head>
+  <body>
+    <div id="login-form-container">
+      <form id="login-form">
+        <h1 id="form-title">Stay@While</h1>
+        <input
+          type="text"
+          name="username"
+          id="username-login"
+          class="login-form"
+          placeholder="username"
+          autocomplete="off"
+        />
+        <input
+          type="password"
+          name="password"
+          id="password-login"
+          class="login-form"
+          placeholder="password"
+          autocomplete="off"
+        />
+        <select id="user-type" class="login-form">
+          <option value="tenant">Tenant</option>
+          <option value="landlord">LandLord</option>
+        </select>
+        <p id="error-message"></p>
+        <input type="submit" value="Log in" id="submit-login" />
+        <a id="signup-link" href="./signup.html">Don't have an Account?</a>
+      </form>
+    </div>
+  </body>
+  <script src="../scripts/auth/loginAuth.js" type="module"></script>
+</html>

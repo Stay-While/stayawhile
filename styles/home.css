@@ -1,0 +1,156 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500&display=swap");
+
+* {
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+}
+#parking-entry-form {
+  display: none;
+}
+#header {
+  margin: 20px;
+  border-bottom: 1px solid #383f51;
+  display: flex;
+}
+#logo {
+  margin-left: 8%;
+  color: #383f51;
+}
+#title {
+  margin-left: 20%;
+}
+.dropbtn,
+#purchase-btn {
+  background-color: #383f51;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  min-width: 160px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: 25%;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: #383f51;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn,
+#purchase-btn:hover {
+  background-color: #3c4f76;
+}
+
+ul,
+li {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+.gen-info,
+#cust-info {
+  display: flex;
+  justify-content: space-evenly;
+}
+#info-basic {
+  margin-left: 20px;
+}
+#cust-info {
+  margin: 20px;
+  border-bottom: 1px solid #383f51;
+}
+/* #tenants-info {
+  margin-right: 100px;
+} */
+#lot-amount-hd,
+#lot-av-hd,
+#cname,
+#exp {
+  font-weight: bold;
+  font-size: 18px;
+  color: #383f51;
+}
+#lot-am-ds,
+#lot-av-ds {
+  font-weight: 600;
+  color: #3c4f76;
+}
+#add-btn {
+  background-color: #383f51;
+  color: white;
+  padding: 20px;
+  font-size: 16px;
+  border: none;
+  min-width: 160px;
+  margin-top: 200px;
+  margin-left: 40vw;
+}
+#add-btn:hover {
+  background-color: #3c4f76;
+}
+
+#res-container {
+  border: 1px solid #383f51;
+  margin-bottom: 20px;
+}
+
+#property-container {
+  margin-right: 5vw;
+}
+#res-des-cont {
+  width: 35vw;
+}
+
+#lable,
+#lot-amount,
+#lot-price,
+#property-name {
+  display: block;
+}
+#ten-img {
+  max-width: 100%;
+}
+#prop-cap {
+  margin-left: 5px;
+}
+#name {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-weight: bold;
+  font-size: 20px;
+}
+#owner {
+  margin-top: 0px;
+  font-size: 14px;
+}
+#price {
+  margin-bottom: 0px;
+}
+#amount {
+  margin-top: 0px;
+}

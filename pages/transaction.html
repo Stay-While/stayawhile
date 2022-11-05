@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../assets/images/favicon.png" />
+    <link rel="stylesheet" href="../styles/home.css" />
+    <link rel="stylesheet" href="../styles/form.css" />
+    <link rel="stylesheet" href="../styles/transaction.css" />
+    <script src="../scripts/auth/homeAuth.js" type="module"></script>
+    <script src="../scripts/auth/signoutAuth.js" type="module"></script>
+
+    <script src="../scripts/func/transaction.js" type="module"></script>
+    <!-- <script src="../scripts/func/tenant.js" type="module"></script> -->
+    <title>Stay@While - Transaction</title>
+  </head>
+  <body>
+    <header id="header">
+      <h2   href="../pages/tenant-home.html"><a style="text-decoration: none;" id="logo" href="../pages/tenant-home.html">Stay@While</a></h2>
+      <h2 id="title">Tenant &nbsp; Panel</h2>
+      <div class="dropdown">
+        <button class="dropbtn">Menu</button>
+        <div class="dropdown-content">
+          <a id="profile" href="../pages/profile.html">Profile</a>
+          <a id="signout">Sign Out</a>
+        </div>
+      </div>  
+      </div>
+    </header>
+    <div id="payment-container">
+      <h3 style="margin-bottom: 1px;">Payment Amount</h3>
+      <p id="amount"></p>
+      <label for="name-on-card">Name on card</label>
+      <input class="pay-input" type="text" name="name-on-card" id="name-on-card" />
+      <label for="card-no">Card number</label>
+      <input
+      class="pay-input"
+        name="card-no"
+        type="tel"
+        inputmode="numeric"
+        pattern="[0-9\s]{13,19}"
+        autocomplete="cc-number"
+        maxlength="19"
+        placeholder="xxxx xxxx xxxx xxxx"
+      />
+      <label for="exp-date">Expiry date</label>
+      <input class="pay-input" type="date" name="exp-date" id="exp-date" />
+      <label for="sec-code">Security code</label>
+      <input class="pay-input" type="number" pattern="[0-9]{3}" name="sec-code" id="sec-code" />
+      <label for="zip-code">ZIP/Postal code</label>
+      <input class="pay-input" type="text" pattern="[0-9]{5}" id="zip-code" />
+      <input type="submit" value="Pay" id="pay-btn" />
+    </div>
+  </body>
+</html>
