@@ -6,7 +6,7 @@ signOutP.addEventListener("click", signOutUser);
 
 function signOutUser(event) {
   event.preventDefault();
-  sessionStorage.setItem("user", null);
+  sessionStorage.setItem("username", null);
   sessionStorage.setItem("userType", null);
   location.href = "../index.html";
 }

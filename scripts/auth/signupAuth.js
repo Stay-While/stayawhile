@@ -1,64 +1,53 @@
-import crypt from "./crypt.js";
 import User from "../entities/user.js";
 
-const username = document.getElementById("username-signup");
-const password = document.getElementById("password-signup");
-const userType = document.getElementById("user-type");
+// on form submit verify the user
 const error = document.getElementById("error-message");
 const submit = document.getElementById("submit-signup");
 submit.addEventListener("click", verifyUser);
 
-// sessionStorage.clear();
-const user = new User();
-
+// verify the new user
 function verifyUser(event) {
   event.preventDefault();
-  if (username.value == "") {
-    error.innerHTML = "empty username";
-    return;
-  }
-  if (password.value == "") {
-    error.innerHTML = "empty password";
-    return;
-  }
-  const encryptedPassword = crypt.encrypt(password.value);
-  const newUser = { username: username.value, password: encryptedPassword, userType: userType.value };
-  const users = JSON.parse(localStorage.getItem("users"));
-  user.setUsername(username.value);
-  user.setUserType(userType.value);
-  if (users == null) {
-    const newUserArr = [{ username: username.value, password: encryptedPassword, userType: userType.value }];
-    localStorage.setItem("users", JSON.stringify(newUserArr));
-    sessionStorage.setItem("user", JSON.stringify(user.getUsername()));
-    sessionStorage.setItem("userType", JSON.stringify(user.getUserType()));
 
-    assignHome(userType.value);
-    return;
-  } else {
-    let userExist = false;
-    users.forEach((user) => {
-      if (user.username == username.value && user.userType == userType.value) {
-        userExist = true;
-        error.innerHTML = "wrong credentials";
-        return;
-      }
-    });
-    if (!userExist) {
-      users.push(newUser);
-      localStorage.setItem("users", JSON.stringify(users));
-      // store user info to session storage
-      sessionStorage.setItem("user", JSON.stringify(user.username));
-      sessionStorage.setItem("userType", JSON.stringify(user.userType));
+  // create a user
+  const username = document.getElementById("username-signup").value;
+  const password = document.getElementById("password-signup").value;
+  const userType = document.getElementById("user-type").value;
+  const newUser = new User(username, password, userType);
 
-      assignHome(newUser.userType);
+  // add new user to database
+  addUser(newUser.getUsername(), newUser.getPassword(), newUser.getUserType()).then((addedUser) => {
+    if (addedUser.status == 200) {
+      // add user info to session storage
+      sessionStorage.clear();
+      sessionStorage.setItem("username", JSON.stringify(newUser.getUsername()));
+      sessionStorage.setItem("userType", JSON.stringify(newUser.getUserType()));
+      assignHome(newUser.getUserType());
+    } else {
+      error.innerHTML = "wrong credentials";
+      return;
     }
-  }
+  });
 }
 
+// adds a user to the database
+async function addUser(username, password, userType) {
+  const response = await fetch("https://stayawhile-api.herokuapp.com/users/add", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username: username, password: password, userType: userType }),
+  });
+  return response;
+}
+
+// assigns a home page to the user
 function assignHome(userType) {
-  if (userType == "tenant") {
+  if (userType == "Tenant") {
     location.href = "../pages/tenant-home.html";
-  } else if (userType == "landlord") {
+  } else if (userType == "Landlord") {
     location.href = "../pages/landlord-home.html";
   }
 }

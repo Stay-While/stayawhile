@@ -3,34 +3,47 @@ const tenantCont = document.getElementById("tenant-cont");
 
 window.addEventListener("DOMContentLoaded", handleProfile);
 
-function handleProfile() {
+async function handleProfile() {
   const userType = JSON.parse(sessionStorage.getItem("userType"));
-  if (userType == "tenant") {
+  if (userType == "Tenant") {
     tenantCont.style.display = "block";
-    const time = sessionStorage.getItem("timer");
-    if (time) {
-      countDown(time, function () {
-        $("#myModal").modal("show");
-      });
-    } else {
-      document.getElementById("countdown").innerHTML = "No Permit Purchased.";
-    }
-  } else if (userType == "landlord") {
+    const username = JSON.parse(sessionStorage.getItem("username"));
+    // check if permit exist
+    document.getElementById("countdown").innerHTML = "No Permit Purchased.";
+    await fetchResidences().then((response) => {
+      if (response.status == 200) {
+        response.json().then((data) => {
+          data.forEach((res) => {
+            res.tenants.forEach((tenant) => {
+              if (tenant.name == username) {
+                // tenant has purchased
+                countDown(tenant.permitExpiresOn, function () {
+                  $("#myModal").modal("show");
+                });
+                return;
+              }
+            });
+          });
+        });
+      }
+    });
+  } else if (userType == "Landlord") {
     landlordCont.style.display = "block";
   }
 }
 
-function countDown(time, callback) {
-  let timer = setInterval(() => {
+async function countDown(time, callback) {
+  let timer = setInterval(async () => {
     document.getElementById("countdown").innerHTML = "Permit Expires in " + time + " days.";
     const owner = sessionStorage.getItem("currOwner");
-    const customer = sessionStorage.getItem("user");
+    let customer = sessionStorage.getItem("username");
+    customer = customer.replaceAll('"', "");
     // update time at customers database
-    updateCustomerPermit(owner, customer, time);
-    if (time-- > 0) {
-      sessionStorage.setItem("timer", time);
-    } else {
-      window.sessionStorage.removeItem("timer");
+    await updatePermitDate(owner, customer, time).then((res) => {
+      // console.log(owner, customer, time);
+      console.log(res);
+    });
+    if (time-- <= 0) {
       clearInterval(timer);
       callback();
     }
@@ -41,20 +54,39 @@ function countDown(time, callback) {
   callback();
 }
 
-function updateCustomerPermit(owner, customer, day) {
-  const customers = JSON.parse(localStorage.getItem("customers"));
+async function updatePermitDate(owner, customer, permitDate) {
+  const response = await fetch(
+    `https://stayawhile-api.herokuapp.com/residences/update/${owner}/${customer}/${permitDate}`,
+    {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response;
+}
 
-  customers.forEach((o) => {
-    if (o.owner == owner) {
-      o.customers.forEach((c) => {
-        if (c.name == customer) {
-          c.permit = day;
-          return;
-        }
+async function permitExist(username) {
+  let v;
+  let res = await fetchResidences().then((response) => {
+    if (response.status == 200) {
+      response.json().then((data) => {
+        data.forEach((res) => {
+          res.tenants.forEach((tenant) => {
+            if (tenant.name == username) {
+              return tenant;
+            }
+          });
+        });
       });
-      // o.customers.push(newCustomer);
-      localStorage.setItem("customers", JSON.stringify(customers));
-      return;
     }
   });
+  return;
+}
+
+async function fetchResidences() {
+  const response = await fetch("https://stayawhile-api.herokuapp.com/residences/all");
+  return response;
 }

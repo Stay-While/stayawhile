@@ -1,124 +1,96 @@
-const owner = JSON.parse(sessionStorage.getItem("user"));
+import Residence from "../entities/residence.js";
+
+const owner = JSON.parse(sessionStorage.getItem("username"));
 const propDash = document.getElementById("property-dashboard");
 const lotAmountDisplay = document.getElementById("lot-am-ds");
 const lotAvDisplay = document.getElementById("lot-av-ds");
 const customCont = document.getElementById("tenants-info");
 
-const propertyName = document.getElementById("property-name");
-const lotAmount = document.getElementById("lot-amount");
-const lotPrice = document.getElementById("lot-price");
-const propImg = document.getElementById("prop-img");
 const addButton = document.getElementById("add-btn");
 const addDoneButton = document.getElementById("add-done-btn");
 
 const errorMessage = document.getElementById("error-message");
-
+const entryFrom = document.getElementById("parking-entry-form");
 addButton.addEventListener("click", () => {
   addButton.style.display = "none";
   errorMessage.style.display = "none";
-  document.getElementById("parking-entry-form").style.display = "block";
+  entryFrom.style.display = "block";
 });
 
-addDoneButton.addEventListener("click", handlePropertyForm);
-window.addEventListener("DOMContentLoaded", handleDisplay);
+window.addEventListener("DOMContentLoaded", handleDisplay.bind(null, owner));
+entryFrom.addEventListener("submit", handlePropertyForm);
 
 function handlePropertyForm(event) {
   event.preventDefault();
-  // check empty form
-  if (propertyName.value == "" || lotAmount.value == "0") {
-    errorMessage.style.display = "block";
-    return;
-  }
-  // addButton.style.display = "block";
-  document.getElementById("parking-entry-form").style.display = "none";
-  const reader = new FileReader();
-  // let imgURL;
-  reader.onload = function (e) {
-    if (addPropertyToDatabase(reader.result)) {
-      console.log(JSON.parse(localStorage.getItem("residence")));
-      handleDisplay();
-    }
-  };
-  reader.readAsDataURL(propImg.files[0]);
-}
-
-function addPropertyToDatabase(imgURL) {
-  const newResidence = {
-    image: imgURL,
-    name: propertyName.value,
-    owner: owner,
-    price: lotPrice.value,
-    amountLeft: lotAmount.value,
-    amount: lotAmount.value,
-  };
-
-  const residence = JSON.parse(localStorage.getItem("residence"));
-  const user = JSON.parse(sessionStorage.getItem("user"));
-
-  if (residence == null) {
-    const newResidenceArr = [newResidence];
-    localStorage.setItem("residence", JSON.stringify(newResidenceArr));
-    return true;
-  } else {
-    let resExist = false;
-    residence.forEach((res) => {
-      if (res.owner == user) {
-        resExist = true;
-      }
-    });
-    if (!resExist) {
-      residence.push(newResidence);
-      localStorage.setItem("residence", JSON.stringify(residence));
-      return true;
-    }
-  }
-  return false;
-}
-
-function handleDisplay() {
-  const residence = JSON.parse(localStorage.getItem("residence"));
-  const user = JSON.parse(sessionStorage.getItem("user"));
-  let resExist = false;
-  if (residence == null) {
-    propDash.style.display = "none";
-    return;
-  }
-  residence.forEach((res) => {
-    if (res.owner == user) {
-      addButton.style.display = "none";
-      lotAmountDisplay.innerHTML = res.amount;
-      lotAvDisplay.innerHTML = res.amountLeft;
-      propDash.style.display = "block";
-      displayCustomers(user);
-      resExist = true;
-      return;
+  const propertyName = document.getElementById("property-name").value;
+  const lotAmount = document.getElementById("lot-amount").value;
+  const lotPrice = document.getElementById("lot-price").value;
+  const propImg = document.getElementById("prop-img").files[0];
+  // create a residence
+  const newResidence = new Residence(propertyName, owner, lotPrice, lotAmount, lotAmount, propImg, []);
+  // try to add to the database
+  const formData = new FormData();
+  formData.append("name", propertyName);
+  formData.append("owner", owner);
+  formData.append("price", lotPrice);
+  formData.append("amount", lotAmount);
+  formData.append("amountLeft", lotAmount);
+  formData.append("image", propImg);
+  addResidence(formData).then((result) => {
+    if (result.status === 200) {
+      handleDisplay(owner);
+    } else if (result.status == 413) {
+      errorMessage.innerHTML = "image too large";
+      errorMessage.style.display = "block";
+    } else {
+      errorMessage.innerHTML = "please fill out the form";
+      errorMessage.style.display = "block";
     }
   });
-  if (!resExist) {
-    propDash.style.display = "none";
-  }
 }
-function displayCustomers(owner) {
-  const customers = JSON.parse(localStorage.getItem("customers"));
-  if (customers == null) {
-    return;
-  } else {
-    customers.forEach((o) => {
-      if (o.owner == owner) {
-        o.customers.forEach((c) => {
-          const singleCustomer = document.createElement("div");
-          singleCustomer.id = "cust-info";
-          const custName = document.createElement("div");
-          const custPermit = document.createElement("div");
-          custName.innerHTML = c.name.replaceAll('"', "");
-          custPermit.innerHTML = c.permit;
-          singleCustomer.appendChild(custName);
-          singleCustomer.appendChild(custPermit);
-          customCont.appendChild(singleCustomer);
-          //name c.name
-          // permit c.permit
-        });
+
+// check if landlord already added a parking lot
+function handleDisplay(owner) {
+  fetchResidence(owner).then((res) => {
+    res.json().then((data) => {
+      if (data == null) {
+        propDash.style.display = "none";
+      } else {
+        addButton.style.display = "none";
+        lotAmountDisplay.innerHTML = data.amount;
+        lotAvDisplay.innerHTML = data.amountLeft;
+        propDash.style.display = "block";
+        entryFrom.style.display = "none";
+        displayCustomers(data.tenants);
       }
     });
-  }
+  });
+}
+
+// display residents with permit
+function displayCustomers(tenants) {
+  tenants.forEach((tenant) => {
+    const singleCustomer = document.createElement("div");
+    singleCustomer.id = "cust-info";
+    const custName = document.createElement("div");
+    const custPermit = document.createElement("div");
+    custName.innerHTML = tenant.name;
+    custPermit.innerHTML = tenant.permitExpiresOn;
+    singleCustomer.appendChild(custName);
+    singleCustomer.appendChild(custPermit);
+    customCont.appendChild(singleCustomer);
+  });
+}
+
+async function addResidence(formData) {
+  const response = await fetch("https://stayawhile-api.herokuapp.com/residences/add", {
+    method: "POST",
+    body: formData,
+  });
+  return response;
+}
+
+async function fetchResidence(owner) {
+  const response = await fetch(`https://stayawhile-api.herokuapp.com/residences/${owner}`);
+  return response;
 }

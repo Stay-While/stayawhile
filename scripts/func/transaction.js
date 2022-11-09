@@ -3,62 +3,69 @@ const payBtn = document.getElementById("pay-btn");
 
 const err = document.createElement("p");
 err.id = "err";
-amount.innerHTML = sessionStorage.getItem("cost");
+amount.innerHTML = "$" + sessionStorage.getItem("cost");
 payBtn.addEventListener("click", handlePayment);
 
 function handlePayment() {
-  sessionStorage.setItem("timer", 365);
-  // decrease lot amount
   const owner = sessionStorage.getItem("currOwner");
-  const customer = sessionStorage.getItem("user");
-  const residence = JSON.parse(localStorage.getItem("residence"));
-  residence.forEach((res) => {
-    if (res.owner == owner) {
-      if (res.amountLeft > 0) {
-        res.amountLeft--;
-        localStorage.setItem("residence", JSON.stringify(residence));
-
-        location.href = "../pages/profile.html";
-        return;
-      } else {
-        err.innerHTML = "Parking lot unavailable";
-        err.style.color = "rgb(255, 132, 132)";
-        amount.appendChild(err);
-      }
+  fetchResidence(owner).then((res) => {
+    if (res.status === 200) {
+      res.json().then((data) => {
+        let amountLeft = data.amountLeft;
+        if (amountLeft > 0) {
+          amountLeft--;
+          updateResidence(owner, amountLeft);
+        } else {
+          err.innerHTML = "Parking lot unavailable";
+          err.style.color = "rgb(255, 132, 132)";
+          amount.appendChild(err);
+        }
+      });
     }
   });
-  addCustomer(owner, customer, 365);
-}
-
-function addCustomer(owner, customer, day) {
-  const customers = JSON.parse(localStorage.getItem("customers"));
-  const newCustomers = [
-    {
-      owner: owner,
-      customers: [{ name: customer, permit: day }],
-    },
-  ];
-
-  if (customers == null) {
-    localStorage.setItem("customers", JSON.stringify(newCustomers));
-  } else {
-    let ownerExist = false;
-    customers.forEach((o) => {
-      if (o.owner == owner) {
-        const newCustomer = {
-          name: customer,
-          permit: day,
-        };
-        o.customers.push(newCustomer);
-        localStorage.setItem("customers", JSON.stringify(customers));
-        ownerExist = true;
-      }
-    });
-    if (!ownerExist) {
-      customers.push(newCustomers[0]);
-      localStorage.setItem("customers", JSON.stringify(customers));
+  let customer = sessionStorage.getItem("username");
+  customer = customer.replaceAll('"', "");
+  addCustomer(owner, customer, 365).then((res) => {
+    if (res.status == 200) {
+      location.href = "../pages/profile.html";
+    } else {
+      err.innerHTML = "Error has occurred.";
+      err.style.color = "rgb(255, 132, 132)";
+      amount.appendChild(err);
     }
-  }
+  });
 }
-// display to landlord
-// clear session storage
+
+async function addCustomer(owner, customer, permitExpiresOn) {
+  const response = await fetch(`https://stayawhile-api.herokuapp.com/residences/addTenant/${owner}`, {
+    method: "PATCH",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: customer,
+      permitExpiresOn: permitExpiresOn,
+    }),
+  });
+  return response;
+}
+
+async function fetchResidence(owner) {
+  const response = await fetch(`https://stayawhile-api.herokuapp.com/residences/${owner}`);
+  return response;
+}
+
+async function updateResidence(owner, amountLeft) {
+  const response = await fetch(`https://stayawhile-api.herokuapp.com/residences/update/${owner}`, {
+    method: "PATCH",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      amountLeft: amountLeft,
+    }),
+  });
+  return response;
+}
