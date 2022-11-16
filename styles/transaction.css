@@ -8,7 +8,7 @@
   flex-direction: column;
   background-color: #383f51;
   color: aliceblue;
-  width: 50vw;
+  width: 35vw;
   margin: 80px auto;
   border-radius: 5px;
   padding: 10px;
@@ -42,16 +42,8 @@
 #exp-date {
   width: 140px;
 }
-/* remove arrow on number input */
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
+@media screen and (max-width: 490px) {
+  #payment-container {
+    width: 60vw;
+  }
 }
