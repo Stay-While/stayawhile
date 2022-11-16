@@ -74,7 +74,8 @@ img {
 #signup-btn {
   color: #dddbf1;
 }
-#login-btn {
+#login-btn,
+#description {
   color: #383f51;
 }
 section::after {

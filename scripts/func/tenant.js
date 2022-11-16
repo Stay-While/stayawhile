@@ -44,7 +44,7 @@ function displayProperty() {
 
           let residenceAmountLeft = document.createElement("p");
           residenceAmountLeft.id = "amountLeft";
-          residenceAmountLeft.innerHTML = residence.amountLeft + " Available";
+          if (residence.amountLeft > 0) residenceAmountLeft.innerHTML = residence.amountLeft + " Available";
 
           residenceDescriptionContainer.appendChild(img);
           residenceDescriptionContainer.appendChild(residenceName);

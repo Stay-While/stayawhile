@@ -74,10 +74,13 @@ function displayCustomers(tenants) {
     singleCustomer.id = "cust-info";
     const custName = document.createElement("div");
     const custPermit = document.createElement("div");
+    const licensePlate = document.createElement("div");
     custName.innerHTML = tenant.name;
     custPermit.innerHTML = tenant.permitExpiresOn;
+    licensePlate.innerHTML = tenant.licensePlate;
     singleCustomer.appendChild(custName);
     singleCustomer.appendChild(custPermit);
+    singleCustomer.appendChild(licensePlate);
     customCont.appendChild(singleCustomer);
   });
 }
