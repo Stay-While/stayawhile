@@ -8,6 +8,7 @@ payBtn.addEventListener("click", handlePayment);
 
 function handlePayment() {
   const owner = sessionStorage.getItem("currOwner");
+  const plateNum = document.getElementById("license-no").value;
   fetchResidence(owner).then((res) => {
     if (res.status === 200) {
       res.json().then((data) => {
@@ -25,7 +26,7 @@ function handlePayment() {
   });
   let customer = sessionStorage.getItem("username");
   customer = customer.replaceAll('"', "");
-  addCustomer(owner, customer, 365).then((res) => {
+  addCustomer(owner, customer, plateNum, 365).then((res) => {
     if (res.status == 200) {
       location.href = "../pages/profile.html";
     } else {
@@ -36,7 +37,7 @@ function handlePayment() {
   });
 }
 
-async function addCustomer(owner, customer, permitExpiresOn) {
+async function addCustomer(owner, customer, plateNum, permitExpiresOn) {
   const response = await fetch(`https://stayawhile-api.herokuapp.com/residences/addTenant/${owner}`, {
     method: "PATCH",
     headers: {
@@ -45,6 +46,7 @@ async function addCustomer(owner, customer, permitExpiresOn) {
     },
     body: JSON.stringify({
       name: customer,
+      licensePlate: plateNum,
       permitExpiresOn: permitExpiresOn,
     }),
   });

@@ -11,6 +11,7 @@
   margin: 20px;
   border-bottom: 1px solid #383f51;
   display: flex;
+  margin-bottom: 40px;
 }
 #logo {
   margin-left: 8%;
@@ -26,7 +27,7 @@
   padding: 10px;
   font-size: 16px;
   border: none;
-  min-width: 160px;
+  width: inherit;
 }
 
 .dropdown {
@@ -76,24 +77,26 @@ li {
 #cust-info {
   display: flex;
   justify-content: space-evenly;
+  margin-left: 0px;
 }
 #info-basic {
-  margin-left: 20px;
+  margin-left: 90px;
 }
 #cust-info {
   margin: 20px;
   border-bottom: 1px solid #383f51;
 }
-/* #tenants-info {
-  margin-right: 100px;
-} */
 #lot-amount-hd,
 #lot-av-hd,
 #cname,
-#exp {
+#exp,
+#licensePlateNum {
   font-weight: bold;
   font-size: 18px;
   color: #383f51;
+}
+#exp {
+  margin-left: 5px;
 }
 #lot-am-ds,
 #lot-av-ds {
@@ -116,14 +119,18 @@ li {
 
 #res-container {
   border: 1px solid #383f51;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  background-color: #f1f1f1;
+  /* min-width: 160px; */
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
 }
 
 #property-container {
   margin-right: 5vw;
 }
 #res-des-cont {
-  width: 35vw;
+  width: 45vw;
 }
 
 #lable,
@@ -153,4 +160,47 @@ li {
 }
 #amount {
   margin-top: 0px;
+}
+
+#amountLeft {
+  color: green;
+}
+#name,
+#owner,
+#price,
+#amountLeft {
+  margin-left: 4px;
+}
+@media screen and (max-width: 760px) {
+  .dropdown,
+  #title {
+    margin-left: 2vw;
+  }
+}
+@media screen and (max-width: 460px) {
+  #logo,
+  #title {
+    font-size: 16px;
+  }
+  #name {
+    font-size: 14px;
+  }
+  #logo {
+    margin-left: 0px;
+  }
+  #info-basic {
+    margin-left: 50px;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
