@@ -35,6 +35,7 @@ body {
 #submit-signup,
 #submit-login,
 #add-done-btn {
+  text-decoration: none;
   padding-top: 15px;
   padding-bottom: 15px;
   font-weight: bolder;
@@ -67,12 +68,4 @@ body {
 #add-done-btn {
   width: 150px;
   margin-bottom: 10px;
-}
-#form-lable,
-#lot-amount,
-#lot-price,
-#property-name,
-#prop-img,
-#error-message {
-  margin-left: 65px;
 }
