@@ -3,7 +3,6 @@
   align-items: center;
 }
 #payment-container {
-  margin-top: 60px;
   display: flex;
   flex-direction: column;
   background-color: #383f51;
@@ -12,13 +11,15 @@
   margin: 80px auto;
   border-radius: 5px;
   padding: 10px;
+  margin-top: 100px;
 }
 #amount {
   margin-bottom: 10px;
   color: gold;
 }
 .pay-input {
-  width: inherit;
+  width: calc(100% - 30px);
+  margin-bottom: 5px;
 }
 #pay-input:focus {
   outline: none;

@@ -1,6 +1,10 @@
 const landlordCont = document.getElementById("landlord-cont");
 const tenantCont = document.getElementById("tenant-cont");
-
+const carInfo = document.getElementById("car-info");
+const carColor = document.getElementById("color");
+const carModel = document.getElementById("model");
+const plateNum = document.getElementById("plateNum");
+const vinNum = document.getElementById("vinNum");
 window.addEventListener("DOMContentLoaded", handleProfile);
 
 async function handleProfile() {
@@ -17,10 +21,19 @@ async function handleProfile() {
             res.tenants.forEach((tenant) => {
               if (tenant.name == username) {
                 // tenant has purchased
+                carInfo.style.display = "block";
+                fetchUser(tenant.name).then((result) => {
+                  result.json().then((user) => {
+                    carColor.innerHTML += user.carColor.fontcolor("purple");
+                    carModel.innerHTML += user.carModel.fontcolor("purple");
+                    plateNum.innerHTML += user.licensePlate.fontcolor("purple");
+                    vinNum.innerHTML += user.carVin.fontcolor("purple");
+                  });
+                });
                 countDown(tenant.permitExpiresOn, function () {
                   $("#myModal").modal("show");
                 });
-                return;
+                throw BreakException;
               }
             });
           });
@@ -49,7 +62,8 @@ async function countDown(time, callback) {
     }
   }, 86400000);
   // 86400000
-  document.getElementById("countdown").innerHTML = "Permit Expires in " + time + " days.";
+  const timeEle = String(time).fontcolor("green");
+  document.getElementById("countdown").innerHTML = "Permit Expires in" + timeEle + "days.";
 
   callback();
 }
@@ -88,5 +102,10 @@ async function permitExist(username) {
 
 async function fetchResidences() {
   const response = await fetch("https://stayawhile-api.herokuapp.com/residences/all");
+  return response;
+}
+
+async function fetchUser(username) {
+  const response = await fetch(`https://stayawhile-api.herokuapp.com/users/${username}`);
   return response;
 }
