@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="../styles/home.css" />
     <link rel="stylesheet" href="../styles/profile.css" />
+    <link rel="stylesheet" href="../styles/index.css">
     <script src="../scripts/auth/homeAuth.js" type="module"></script>
     <script src="../scripts/auth/signoutAuth.js" type="module"></script>
 
@@ -19,38 +20,40 @@
   </head>
   <body>
     <div id="landlord-cont">
-      <header id="header">
-        <h2 id="logo" href="../pages/landlord-home.html"><a style="text-decoration: none;" id="logo" href="../pages/landlord-home.html">Stay@While</a></h2>
-        <h2 id="title">Landlord &nbsp; Profile</h2>
-        <div class="dropdown">
-          <button class="dropbtn">Menu</button>
-          <div class="dropdown-content">
-            <a id="profile" href="../pages/profile.html">Profile</a>
-            <a id="signout">Sign Out</a>
-          </div>
-        </div>  
-        </div>
-      </header>
+      <div class="container">
+        <nav>
+          <ul class="bar">
+            <li id="header"><a href="/pages/tenant-home.html">Stay@While</a></li>
+            <span class="right-title">Landlord &nbsp; Profile</span>
+            <li><a href="/pages/tenant-home.html" class="active">Home</a></li>
+            <li><a id="profile" href="/pages/profile.html">Profile</a></li>
+            <li><a class ="signout-btn" id="signout">Sign Out</a></li>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
     <div id="tenant-cont">
-      
-      <header id="header">
-        <h2 id="logo" href="../pages/tenant-home.html"><a style="text-decoration: none;" id="logo" href="../pages/tenant-home.html">Stay@While</a></h2>
-        <h2 id="title">Tenant &nbsp; Profile</h2>
-        <div class="dropdown">
-          <button class="dropbtn">Menu</button>
-          <div class="dropdown-content">
-            <a id="profile" href="../pages/profile.html">Profile</a>
-            <a id="signoutp">Sign Out</a>
-          </div>
-        </div>  
-      </header>
-      <div id="countdown"></div>
-      <div id="car-info">
-        <div id="color"> Car Color: </div>
-        <div id="model"> Car Model: </div>
-        <div id="plateNum"> License Plate: </div>
-        <div id="vinNum"> VIN: </div>
+      <div class="container">
+        <nav>
+          <ul class="bar">
+            <li id="header"><a href="/pages/tenant-home.html">Stay@While</a></li>
+            <span class="right-title">Resident &nbsp; Profile</span>
+            <li><a href="/pages/tenant-home.html" class="active">Home</a></li>
+            <li><a id="profile" href="/pages/profile.html">Profile</a></li>
+            <li><a class ="signout-btn" id="signoutp">Sign Out</a></li>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div id="profile-container">
+        <div id="countdown"></div>
+        <div id="car-info">
+          <div id="color"> Car Color: </div>
+          <div id="model"> Car Model: </div>
+          <div id="plateNum"> License Plate: </div>
+          <div id="vinNum"> VIN: </div>
+        </div>
       </div>
     </div>
   </body>
