@@ -26,6 +26,7 @@ function displayProperty() {
           img.id = "ten-img";
           if (!(typeof residence.image === "undefined")) {
             img.setAttribute("src", "https://stayawhile-api.herokuapp.com/" + residence.image);
+            img.setAttribute("alt", "");
           }
 
           // info about residence
@@ -60,7 +61,10 @@ function displayProperty() {
             purchaseBtn.id = "purchase-btn";
             purchaseBtn.type = "submit";
             purchaseBtn.value = "Purchase";
-            purchaseBtn.addEventListener("click", handlePurchase.bind(null, residence.price, residence.owner));
+            purchaseBtn.addEventListener(
+              "click",
+              handlePurchase.bind(null, residence.name, residence.price, residence.owner)
+            );
             residenceDescriptionContainer.appendChild(purchaseBtn);
           } else {
             unavailable = document.createElement("p");
@@ -77,7 +81,8 @@ function displayProperty() {
   });
 }
 
-function handlePurchase(cost, owner) {
+function handlePurchase(name, cost, owner) {
+  sessionStorage.setItem("name", name);
   sessionStorage.setItem("cost", cost);
   sessionStorage.setItem("currOwner", owner);
   location.href = "../../pages/transaction.html";

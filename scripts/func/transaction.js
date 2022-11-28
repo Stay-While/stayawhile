@@ -6,6 +6,20 @@ err.id = "err";
 amount.innerHTML = "$" + sessionStorage.getItem("cost");
 payBtn.addEventListener("click", handlePayment);
 
+// review purchase
+const info = document.getElementById("parking-purchase-info");
+const lotName = document.createElement("div");
+lotName.id = "lot-name";
+lotName.innerHTML = "Residence: " + sessionStorage.getItem("name").fontcolor("purple");
+const lotOwner = document.createElement("div");
+lotOwner.id = "lot-owner";
+lotOwner.innerHTML = "Owner: " + sessionStorage.getItem("currOwner").fontcolor("purple");
+const lotCost = document.createElement("div");
+lotCost.id = "lot-cost";
+lotCost.innerHTML = "Cost: " + ("$" + sessionStorage.getItem("cost")).fontcolor("purple");
+info.appendChild(lotName);
+info.appendChild(lotOwner);
+info.appendChild(lotCost);
 function handlePayment() {
   const owner = sessionStorage.getItem("currOwner");
   const plateNum = document.getElementById("license-no").value;

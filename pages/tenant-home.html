@@ -2,11 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="../assets/images/favicon.png">
+    <link rel="icon" href="../assets/images/favicon.png" />
     <link rel="stylesheet" href="../styles/home.css" />
     <link rel="stylesheet" href="../styles/form.css" />
+    <link rel="stylesheet" href="../styles/index.css" />
     <script src="../scripts/auth/homeAuth.js" type="module"></script>
     <script src="../scripts/auth/signoutAuth.js" type="module"></script>
     <script src="../scripts/func/tenant.js" type="module"></script>
@@ -14,18 +15,18 @@
     <title>Stay@While - Home</title>
   </head>
   <body>
-    <header id="header">
-      <h2 id="logo"href="../pages/tenant-home.html"><a style="text-decoration: none;" id="logo" href="../pages/tenant-home.html">Stay@While</a></h2>
-      <h2 id="title">Tenant &nbsp; Panel</h2>
-      <div class="dropdown">
-        <button class="dropbtn">Menu</button>
-        <div class="dropdown-content">
-          <a id="profile" href="../pages/profile.html">Profile</a>
-          <a id="signout">Sign Out</a>
-        </div>
-      </div>  
-      </div>
-    </header>
+    <div class="container">
+      <nav>
+        <ul class="bar">
+          <li id="header"><a href="/pages/tenant-home.html">Stay@While</a></li>
+          <span class="right-title">Resident &nbsp; Inventory</span>
+          <li><a href="/pages/tenant-home.html" class="active">Home</a></li>
+          <li><a id="profile" href="/pages/profile.html">Profile</a></li>
+          <li><a id="signout">Sign Out</a></li>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
     <div id="property-container">
       <ul id="property-list"></ul>

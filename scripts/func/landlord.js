@@ -73,11 +73,20 @@ function displayCustomers(tenants) {
     const singleCustomer = document.createElement("div");
     singleCustomer.id = "cust-info";
     const custName = document.createElement("div");
+    custName.className = "column";
+    custName.id = "cname";
     const custPermit = document.createElement("div");
+    custPermit.className = "column";
+    custPermit.id = "cpermit";
     const licensePlate = document.createElement("div");
+    licensePlate.className = "column";
+    licensePlate.id = "cplate";
     custName.innerHTML = tenant.name;
     custPermit.innerHTML = tenant.permitExpiresOn;
     licensePlate.innerHTML = tenant.licensePlate;
+    if (licensePlate.innerHTML == "") {
+      licensePlate.innerHTML = "N/A";
+    }
     singleCustomer.appendChild(custName);
     singleCustomer.appendChild(custPermit);
     singleCustomer.appendChild(licensePlate);

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../styles/home.css" />
     <link rel="stylesheet" href="../styles/form.css" />
     <link rel="stylesheet" href="../styles/transaction.css" />
+    <link rel="stylesheet" href="../styles/index.css">
     <script src="../scripts/auth/homeAuth.js" type="module"></script>
     <script src="../scripts/auth/signoutAuth.js" type="module"></script>
 
@@ -15,54 +16,61 @@
     <title>Stay@While - Transaction</title>
   </head>
   <body>
-    <header id="header">
-      <h2   href="../pages/tenant-home.html"><a style="text-decoration: none;" id="logo" href="../pages/tenant-home.html">Stay@While</a></h2>
-      <h2 id="title">Tenant &nbsp; Panel</h2>
-      <div class="dropdown">
-        <button class="dropbtn">Menu</button>
-        <div class="dropdown-content">
-          <a id="profile" href="../pages/profile.html">Profile</a>
-          <a id="signout">Sign Out</a>
-        </div>
-      </div>  
-      </div>
-    </header>
-    <div id="payment-container">
-      <h3 style="margin-bottom: 1px;">Payment Amount</h3>
-      <p id="amount"></p>
-      <label for="plate-no">License plate number</label>
-      <input class="pay-input" type="text" name="plate-no" id="license-no" />
-
-      <label for="color">Car color</label>
-      <input class="pay-input" type="text" name="color" id="color" />
-
-      <label for="model">Car model</label>
-      <input class="pay-input" type="text" name="model" id="model" />
-
-      <label for="vin">VIN</label>
-      <input class="pay-input" type="text" name="vin" id="vin" />
-
-
-      <label for="name-on-card">Name on card</label>
-      <input class="pay-input" type="text" name="name-on-card" id="name-on-card" />
-      <label for="card-no">Card number</label>
-      <input
-      class="pay-input"
-        name="card-no"
-        type="tel"
-        inputmode="numeric"
-        pattern="[0-9\s]{13,19}"
-        autocomplete="cc-number"
-        maxlength="19"
-        placeholder="xxxx xxxx xxxx xxxx"
-      />
-      <label for="exp-date">Expiry date</label>
-      <input class="pay-input" type="date" name="exp-date" id="exp-date" />
-      <label for="sec-code">Security code</label>
-      <input class="pay-input" type="number" pattern="[0-9]{3}" name="sec-code" id="sec-code" />
-      <label for="zip-code">ZIP/Postal code</label>
-      <input class="pay-input" type="text" pattern="[0-9]{5}" id="zip-code" />
-      <input type="submit" value="Pay" id="pay-btn" />
+    <div class="container">
+      <nav>
+        <ul class="bar">
+          <li id="header"><a href="/pages/tenant-home.html">Stay@While</a></li>
+          <span class="right-title">Permit &nbsp; Purchase</span>
+          <li><a href="/pages/tenant-home.html" class="active">Home</a></li>
+          <li><a id="profile" href="/pages/profile.html">Profile</a></li>
+          <li><a id="signout">Sign Out</a></li>
+          </li>
+        </ul>
+      </nav>
     </div>
+
+    <div id="body-container">
+      <div id="permit-info">
+        <h3>Review Purchase</h3>
+        <div id="parking-purchase-info"></div>
+      </div>
+      <div id="payment-container">
+        <h3 style="margin-bottom: 1px;">Payment Amount</h3>
+        <p id="amount"></p>
+        <label for="plate-no">License plate number</label>
+        <input class="pay-input" type="text" name="plate-no" id="license-no" />
+  
+        <label for="color">Car color</label>
+        <input class="pay-input" type="text" name="color" id="color" />
+  
+        <label for="model">Car model</label>
+        <input class="pay-input" type="text" name="model" id="model" />
+  
+        <label for="vin">VIN</label>
+        <input class="pay-input" type="text" name="vin" id="vin" />
+  
+  
+        <label for="name-on-card">Name on card</label>
+        <input class="pay-input" type="text" name="name-on-card" id="name-on-card" />
+        <label for="card-no">Card number</label>
+        <input
+        class="pay-input"
+          name="card-no"
+          type="tel"
+          inputmode="numeric"
+          pattern="[0-9\s]{13,19}"
+          autocomplete="cc-number"
+          maxlength="19"
+          placeholder="xxxx xxxx xxxx xxxx"
+        />
+        <label for="exp-date">Expiry date</label>
+        <input class="pay-input" type="date" name="exp-date" id="exp-date" />
+        <label for="sec-code">Security code</label>
+        <input class="pay-input" type="number" pattern="[0-9]{3}" name="sec-code" id="sec-code" />
+        <label for="zip-code">ZIP/Postal code</label>
+        <input class="pay-input" type="text" pattern="[0-9]{5}" id="zip-code" />
+        <input type="submit" value="Pay" id="pay-btn" />
+      </div>
+    </section>
   </body>
 </html>

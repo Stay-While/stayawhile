@@ -6,29 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="../assets/images/favicon.png" />
     <link rel="stylesheet" href="../styles/form.css" />
+    <link rel="stylesheet" href="../styles/index.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <title>Stay@While - Signup</title>
   </head>
   <body>
     <div class="container">
       <nav>
-      <ul class="bar">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li class="has-dropdown">
-          <a href="login.html">Login</a>
-          <ul class="dropdown">
-            <li><a href="#"class="active">Resident</a></li>
-            <li><a href="#"class="active">Manager</a></li>
-          </ul>
-        </li>
-        <li><a href="#">FAQ</a></li>
-      </ul>
+        <ul class="bar">
+          <li id="header"><a href="../index.html">Stay@While</a></li>
+          <span class="right"></span>
+          <li><a href="../index.html" class="active">Home</a></li>
+          <li><a href="/pages/about.html">About</a></li>
+          <li class="has-dropdown">
+            <a href="pages/login.html" id="login-header">Login</a>
+            <ul class="dropdown">
+              <li><a href="/pages/login.html">Resident</a></li>
+              <li><a href="/pages/login.html">Landlord</a></li>
+            </ul>
+          </li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
       </nav>
     </div>
     <div>
       <form id="signup-form">
-        <h1 id="form-title"href="../index.html"><a style="text-decoration: none;" id="form-title" href="../index.html">Stay@While</a></h1>
+        <h1 id="form-title" href="../index.html">
+          <a style="text-decoration: none" id="form-title" href="../index.html">Stay@While</a>
+        </h1>
         <input
           type="text"
           name="fullname"
@@ -37,14 +42,7 @@
           placeholder="Full Name"
           autocomplete="off"
         />
-        <input
-          type="text"
-          name="email"
-          id="email-signup"
-          class="signup-form"
-          placeholder="Email"
-          autocomplete="off"
-        />
+        <input type="text" name="email" id="email-signup" class="signup-form" placeholder="Email" autocomplete="off" />
         <input
           type="text"
           name="username"
