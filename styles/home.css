@@ -63,7 +63,6 @@ li {
   font-size: 16px;
   border: none;
   min-width: 160px;
-  margin-top: 200px;
   margin-left: 40vw;
 }
 #add-btn:hover {
@@ -87,10 +86,10 @@ li {
 #res-des-cont {
   width: 35vw;
 }
-#property-dashboard {
-  margin-top: 120px;
-}
 
+#above {
+  margin-top: 180px;
+}
 #lable,
 #lot-amount,
 #lot-price,
