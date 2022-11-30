@@ -3,8 +3,25 @@ import User from "../entities/user.js";
 // on form submit verify the user
 const error = document.getElementById("error-message");
 const submit = document.getElementById("submit-signup");
+const welcome = document.getElementById("welcome");
 submit.addEventListener("click", verifyUser);
 
+// handle welcome message
+window.addEventListener("DOMContentLoaded", welcomeMessageDisappear);
+window.addEventListener("DOMContentLoaded", welcomeMessageAppear);
+
+function welcomeMessageAppear() {
+  if (sessionStorage.getItem("reload") == null) {
+    welcome.innerHTML = "Welcome, " + sessionStorage.getItem("username").replaceAll('"', "").fontcolor("green");
+  }
+  sessionStorage.setItem("reload", 1);
+}
+
+function welcomeMessageDisappear() {
+  setTimeout(() => {
+    welcome.remove();
+  }, 3000);
+}
 // verify the new user
 function verifyUser(event) {
   event.preventDefault();

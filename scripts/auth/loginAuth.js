@@ -2,8 +2,27 @@ import User from "../entities/user.js";
 
 const error = document.getElementById("error-message");
 const submit = document.getElementById("submit-login");
-
+const welcome = document.getElementById("welcome");
 // sessionStorage.clear();
+
+// handle welcome message
+window.addEventListener("DOMContentLoaded", welcomeMessageDisappear);
+window.addEventListener("DOMContentLoaded", welcomeMessageAppear);
+
+function welcomeMessageAppear() {
+  if (sessionStorage.getItem("reload") == null) {
+    welcome.innerHTML = "Welcome, " + sessionStorage.getItem("username").replaceAll('"', "").fontcolor("green");
+  } else {
+    welcome.remove();
+  }
+  sessionStorage.setItem("reload", 1);
+}
+
+function welcomeMessageDisappear() {
+  setTimeout(() => {
+    welcome.remove();
+  }, 3000);
+}
 
 submit.addEventListener("click", verifyUser);
 
