@@ -8,5 +8,6 @@ function signOutUser(event) {
   event.preventDefault();
   sessionStorage.setItem("username", null);
   sessionStorage.setItem("userType", null);
+  sessionStorage.setItem("reload", null);
   location.href = "../index.html";
 }

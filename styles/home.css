@@ -149,3 +149,8 @@ li {
   width: 80%;
   margin-left: 5vw;
 }
+#welcome {
+  transition: all 1.5s ease-in;
+  font-size: 18px;
+  font-weight: bold;
+}
