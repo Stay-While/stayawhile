@@ -1,7 +1,7 @@
 import User from "../entities/user.js";
 
 const error = document.getElementById("error-message");
-const submit = document.getElementById("submit-login");
+const submitLogIn = document.getElementById("submit-login");
 const welcome = document.getElementById("welcome");
 // sessionStorage.clear();
 
@@ -24,7 +24,7 @@ function welcomeMessageDisappear() {
   }, 3000);
 }
 
-submit.addEventListener("click", verifyUser);
+submitLogIn.addEventListener("click", verifyUser);
 
 function verifyUser(event) {
   event.preventDefault();

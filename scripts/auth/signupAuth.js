@@ -2,9 +2,9 @@ import User from "../entities/user.js";
 
 // on form submit verify the user
 const error = document.getElementById("error-message");
-const submit = document.getElementById("submit-signup");
+const submitSignUp = document.getElementById("submit-signup");
 const welcome = document.getElementById("welcome");
-submit.addEventListener("click", verifyUser);
+submitSignUp.addEventListener("click", verifyUser);
 
 // handle welcome message
 window.addEventListener("DOMContentLoaded", welcomeMessageDisappear);
